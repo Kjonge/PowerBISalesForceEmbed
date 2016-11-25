@@ -1,0 +1,26 @@
+<apex:page showHeader="true" controller="PowerBIController" action="{!redirectOnCallback}">
+<html>
+<head>
+</head>
+<apex:includeScript value="{!$Resource.PBIJS}"/>
+    <apex:outputPanel rendered="{!NOT(hasToken)}"><a href='{!authUrl}'>Login</a></apex:outputPanel>
+    <apex:outputPanel rendered="{!hasToken}">Already has token</apex:outputPanel>
+
+<div id="myReport" style="height: 800px;"/>
+
+
+<script>
+var embedConfiguration = {
+    type: 'report',
+    id: 'YOURREPORTID',
+    embedUrl: 'https://app.powerbi.com/reportEmbed'
+};
+
+powerbi.accessToken = '{!PBIaccess_token}';
+var element = document.getElementById('myReport');
+var report = powerbi.embed(element, embedConfiguration);
+
+</script>
+
+</html>
+</apex:page>
