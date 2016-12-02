@@ -15,6 +15,7 @@ public virtual class OAuthController {
                 this.access_token = '';
             else
                 this.access_token = pbi_AccessToken.getValue();
+            
             return this.access_token;
         } 
         set;
@@ -26,7 +27,12 @@ public virtual class OAuthController {
     * @return If the access token is set
     */
     public Boolean getHasToken() {
-          return (PBIaccess_token.length()>0);
+          Boolean check;
+          if(PBIaccess_token== null)
+              check = false;
+           else 
+              check = PBIaccess_token.length()>0;
+          return check;
     }
 
 
@@ -135,10 +141,6 @@ public virtual class OAuthController {
             String code = ApexPages.currentPage().getParameters().get('code');
             OAuthResult result = validateCode(code, this.getPageUrl());
 
-           // OAuthApp_pbi__c creds = OAuthApp_pbi__c.getValues(this.application_name);
-           // creds.Access_Token__c = 'yes'//result.access_token;
-           // creds.Refresh_Token__c = 'no';//result.refresh_token;
-           // update creds;
            //Store accesstoken in cookie
             Cookie session = new Cookie('pbi_AccessToken', result.access_token,null,-1,false);
             ApexPages.currentPage().setCookies(new Cookie[]{session});

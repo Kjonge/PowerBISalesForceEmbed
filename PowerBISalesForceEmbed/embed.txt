@@ -10,10 +10,25 @@
 
 
 <script>
+    var filter = {
+      $schema: "http://powerbi.com/product/schema#basic",
+      target: {
+        table: "Device",
+        column: "DeviceId"
+      },
+      operator: "Is",
+      values: ["1002"]
+    };
+
 var embedConfiguration = {
     type: 'report',
     id: 'YOURREPORTID',
-    embedUrl: 'https://app.powerbi.com/reportEmbed'
+    embedUrl: 'https://app.powerbi.com/reportEmbed',
+    settings: {
+            filterPaneEnabled: true,
+            navContentPaneEnabled: false
+        },
+    filters: [filter]
 };
 
 powerbi.accessToken = '{!PBIaccess_token}';
